@@ -2,13 +2,13 @@ from fastapi import Request, FastAPI
 from fastapi.responses import JSONResponse
 
 from .errors_list import (
-    NotUniqueArticuleExc,  NotValidExternalDataExc,
-    ProductDoesntExitstsExc, ServerErrorExc,
+    NotUniqueArtikulExc,  NotValidExternalDataExc,
+    ProductDoesntExitstsExc, ServerErrorExc, AlreadySubscribedExc
 )
 
 
-async def not_unique_articule_handler(
-    request: Request, exc: NotUniqueArticuleExc
+async def not_unique_artikul_handler(
+    request: Request, exc: NotUniqueArtikulExc
 ):
     return JSONResponse(
         status_code=400,
@@ -43,9 +43,18 @@ async def server_error_handler(
     )
 
 
+async def already_subscribed_error_handler(
+    request: Request, exc: AlreadySubscribedExc
+):
+    return JSONResponse(
+        status_code=409,
+        content={"message": exc.detail},
+    )
+
+
 def register_all_errors(fastapi: FastAPI):
     fastapi.add_exception_handler(
-        NotUniqueArticuleExc, not_unique_articule_handler
+        NotUniqueArtikulExc, not_unique_artikul_handler
     )
     fastapi.add_exception_handler(
         NotValidExternalDataExc, not_valid_external_data_handler
@@ -54,3 +63,7 @@ def register_all_errors(fastapi: FastAPI):
         ProductDoesntExitstsExc, product_doesnt_exist_handler
     )
     fastapi.add_exception_handler(ServerErrorExc, server_error_handler)
+    fastapi.add_exception_handler(
+        AlreadySubscribedExc, already_subscribed_error_handler
+    )
+

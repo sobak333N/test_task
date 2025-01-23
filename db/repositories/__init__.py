@@ -1,1 +1,2 @@
 from .product_repository import ProductRepository
+from .abstract_repository import AbsRepository

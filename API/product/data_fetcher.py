@@ -7,7 +7,7 @@ from config import Config
 from abstracts import AbsDataFetcher
 from schemas import ProductExternalSchena
 from errors import (
-    NotUniqueArticuleExc,  NotValidExternalDataExc,
+    NotUniqueArtikulExc,  NotValidExternalDataExc,
     ProductDoesntExitstsExc, ServerErrorExc,
 )
 
@@ -17,9 +17,9 @@ class HttpFetcher(AbsDataFetcher):
         self.url = Config.FETCH_URL
 
     async def fetch_data(
-        self, session: ClientSession, articule: int
+        self, artikul: int, session: ClientSession
     ) -> Optional[ProductExternalSchena]:
-        get_url = self.url + str(articule)
+        get_url = self.url + str(artikul)
         async with session.get(get_url) as response:
             print(response.text)
             print(response.status)
@@ -27,13 +27,13 @@ class HttpFetcher(AbsDataFetcher):
                 data = await response.json()
                 product_data = data.get('data', {}).get('products', [])
                 if len(product_data) > 1:
-                    raise NotUniqueArticuleExc()
+                    raise NotUniqueArtikulExc()
                 elif len(product_data) == 0:
                     raise ProductDoesntExitstsExc()
                 product_dict = product_data[0]
                 try:
                     product = ProductExternalSchena(
-                        articule=product_dict.get('id', None),
+                        artikul=product_dict.get('id', None),
                         name=product_dict.get('name', None),
                         cost=product_dict.get('priceU', None),
                         rating=product_dict.get('rating', None),

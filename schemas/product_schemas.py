@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field, ConfigDict
 
 
 class ProductPostRequestSchema(BaseModel):
-    articule: int = Field(
+    artikul: int = Field(
         ..., description="Артикул товара на wildberries", examples=[211695539]
     )
 

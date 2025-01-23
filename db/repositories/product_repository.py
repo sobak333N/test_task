@@ -12,12 +12,12 @@ class ProductRepository(AbsRepository):
     async def get(self, pk: int, session: AsyncSession) -> ProductSchema:
         pass
 
-    async def get_by_articule(
-        self, articule: int, session: AsyncSession
+    async def get_by_artikul(
+        self, artikul: int, session: AsyncSession
     ) -> Optional[ProductSchema]:
         statement = (
             select(Product)
-            .where(Product.articule == articule)
+            .where(Product.artikul == artikul)
         )
         result = await session.execute(statement)
         return result.scalar_one_or_none()
@@ -34,6 +34,13 @@ class ProductRepository(AbsRepository):
         pass
 
     async def update(
-        self, pk: int, model: ProductExternalSchena, session: AsyncSession
+        self, instance: Product, 
+        model: ProductExternalSchena, session: AsyncSession
     ) -> ProductSchema:
-        pass
+        model_data = model.model_dump(exclude_unset=True)
+        for attr, value in model_data.items():
+            setattr(instance, attr, value)
+        session.add(instance)
+        await session.commit()
+        await session.refresh(instance)
+        return ProductSchema.model_validate(instance)

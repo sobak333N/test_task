@@ -35,5 +35,5 @@ app = FastAPI(
 
 register_all_errors(app)
 app.include_router(
-    product_router, prefix=f"{version_prefix}/products", tags=["products"]
+    product_router, prefix=f"{version_prefix}", tags=["products"]
 )

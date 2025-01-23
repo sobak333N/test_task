@@ -16,5 +16,5 @@ class AbsRepository(ABC):
         pass
 
     @abstractmethod
-    async def update(self, pk: int, model, session: Any):
+    async def update(self, instance: Any, model, session: Any):
         pass

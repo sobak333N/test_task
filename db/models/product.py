@@ -9,11 +9,11 @@ class Product(Base):
 
     product_id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String)
-    articule: Mapped[int] = mapped_column(BigInteger, unique=True)
+    artikul: Mapped[int] = mapped_column(BigInteger, unique=True)
     cost: Mapped[int] = mapped_column(BigInteger)
     rating: Mapped[float] = mapped_column(Float)
     total_quantity: Mapped[int] = mapped_column(Integer)
 
     __table_args__ = (
-        Index("idx_products_article", "articule"),
+        Index("idx_products_article", "artikul"),
     )

@@ -1,5 +1,5 @@
 
-class NotUniqueArticuleExc(Exception):
+class NotUniqueArtikulExc(Exception):
     def __init__(self, detail: str = "Артикул не уникальный"):
         self.detail = detail
 
@@ -16,4 +16,9 @@ class ProductDoesntExitstsExc(Exception):
 
 class ServerErrorExc(Exception):
     def __init__(self, detail: str = "Ошибка на внешнем сервере"):
+        self.detail = detail
+
+
+class AlreadySubscribedExc(Exception):
+    def __init__(self, detail: str = "Подписка на данны товар уже оформлена"):
         self.detail = detail

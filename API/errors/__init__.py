@@ -1,4 +1,4 @@
 from .errors_list import (
-    NotUniqueArticuleExc,  NotValidExternalDataExc,
-    ProductDoesntExitstsExc, ServerErrorExc,
+    NotUniqueArtikulExc,  NotValidExternalDataExc,
+    ProductDoesntExitstsExc, ServerErrorExc, AlreadySubscribedExc,
 )
