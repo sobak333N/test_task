@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: ./API/API.Dockerfile
-    # restart: always
+    restart: always
     networks:
       - app-network
     volumes:
@@ -14,6 +14,9 @@ services:
     env_file: .env
     ports:
       - 8000:8000
+    depends_on:
+      db: 
+        condition: service_healthy
   # bot:
   #   ...
   db:
@@ -29,7 +32,11 @@ services:
       - app-network
     volumes:
       - ./db/init:/docker-entrypoint-initdb.d:ro
-    # hea
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 
 

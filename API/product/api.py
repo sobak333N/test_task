@@ -23,10 +23,6 @@ async def post_products(
         product_data.artikul, http_session
     )
     return await product_service.create(external_product_model, session)
-    # print(product_data)
-    # print(session)
-    # print(http_session)
-    # ...
 
 
 @product_router.get("/subscribe/{artikul}", status_code=status.HTTP_200_OK)
