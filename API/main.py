@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
 from product.api import product_router
+from errors.handlers import register_all_errors 
 
 
 version = "v1"
@@ -32,6 +33,7 @@ app = FastAPI(
     redoc_url=f"{version_prefix}/redoc"
 )
 
+register_all_errors(app)
 app.include_router(
     product_router, prefix=f"{version_prefix}/products", tags=["products"]
 )

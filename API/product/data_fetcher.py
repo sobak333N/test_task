@@ -6,6 +6,10 @@ from pydantic import ValidationError
 from config import Config
 from abstracts import AbsDataFetcher
 from schemas import ProductExternalSchena
+from errors import (
+    NotUniqueArticuleExc,  NotValidExternalDataExc,
+    ProductDoesntExitstsExc, ServerErrorExc,
+)
 
 
 class HttpFetcher(AbsDataFetcher):
@@ -22,9 +26,10 @@ class HttpFetcher(AbsDataFetcher):
             if response.status == 200:
                 data = await response.json()
                 product_data = data.get('data', {}).get('products', [])
-                if len(product_data) != 1:
-                    print(len(product_data))
-                    raise Exception
+                if len(product_data) > 1:
+                    raise NotUniqueArticuleExc()
+                elif len(product_data) == 0:
+                    raise ProductDoesntExitstsExc()
                 product_dict = product_data[0]
                 try:
                     product = ProductExternalSchena(
@@ -34,12 +39,9 @@ class HttpFetcher(AbsDataFetcher):
                         rating=product_dict.get('rating', None),
                         total_quantity=product_dict.get('totalQuantity', None),
                     )
-                except ValidationError as e:
-                    print(e)
-                    raise e
-                    print("validation")
+                except ValidationError:
+                    raise NotValidExternalDataExc()
                 return product
             elif response.status == 404:
-                ...
-                print("not found")
-            raise Exception
+                raise ProductDoesntExitstsExc()
+            raise ServerErrorExc()
