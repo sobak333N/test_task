@@ -4,30 +4,25 @@ from product.api import product_router
 from errors.handlers import register_all_errors 
 
 
-version = "v1"
+version_prefix = "v1"
 
 description = """
-A REST API for a book review web service.
+REST API для получения информации о продуктах и подписки на обновления.
 
-This REST API is able to;
-- Create Read Update And delete books
-- Add reviews to books
-- Add tags to Books e.t.c.
-    """
-
-version_prefix = f"/api/{version}"
+Функционал API включает:
+- Получение подробной информации о продукте по артикулу
+- Подписку на обновления данных о продукте
+"""
 
 app = FastAPI(
-    title="Bookly",
+    title="Трекер Продуктов API",
     description=description,
-    version=version,
-    license_info={"name": "MIT License", "url": "https://opensource.org/license/mit"},
+    version=version_prefix,
     contact={
-        "name": "Ryazanskii Vyacheslav",
+        "name": "Рязанский Вячеслав",
         "url": "https://github.com/sobak333N",
         "email": "p.ko1@yandex.com",
     },
-    terms_of_service="httpS://example.com/tos",
     openapi_url=f"{version_prefix}/openapi.json",
     docs_url=f"{version_prefix}/docs",
     redoc_url=f"{version_prefix}/redoc"
