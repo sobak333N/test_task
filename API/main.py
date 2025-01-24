@@ -3,8 +3,8 @@ from fastapi import FastAPI
 from product.api import product_router
 from errors.handlers import register_all_errors 
 
-
-version_prefix = "v1"
+version = "1.0.0"  # Установите корректный формат версии
+version_prefix = f"/api/v1"  # Это будет использоваться в URL
 
 description = """
 REST API для получения информации о продуктах и подписки на обновления.
@@ -17,7 +17,7 @@ REST API для получения информации о продуктах и
 app = FastAPI(
     title="Трекер Продуктов API",
     description=description,
-    version=version_prefix,
+    version=version,  # Версия в правильном формате
     contact={
         "name": "Рязанский Вячеслав",
         "url": "https://github.com/sobak333N",
@@ -30,5 +30,5 @@ app = FastAPI(
 
 register_all_errors(app)
 app.include_router(
-    product_router, prefix=f"{version_prefix}", tags=["products"]
+    product_router, prefix=version_prefix, tags=["products"]
 )

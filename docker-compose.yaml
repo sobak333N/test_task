@@ -55,8 +55,18 @@
         timeout: 5s
         retries: 5
 
-
-
+    # ngrok:
+    #   image: ngrok/ngrok:latest
+    #   command: 
+    #     - "http"
+    #     - "--url=dane-peaceful-formally.ngrok-free.app"
+    #     - "server:8000"
+    #   environment:
+    #     NGROK_AUTHTOKEN: ${NGROK_AUTHTOKEN}
+    #   ports:
+    #     - 4040:4040
+    #   networks:
+    #       - app-network
 
   networks:
     app-network:
