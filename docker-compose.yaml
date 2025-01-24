@@ -19,22 +19,22 @@
         db: 
           condition: service_healthy
 
-    # bot:
-    #   build:
-    #     context: .
-    #     dockerfile: ./bot/bot.Dockerfile
-    #   restart: always
-    #   networks:
-    #     - app-network
-    #   volumes:
-    #     - ./bot:/app
-    #     - ./db:/app/db
-    #     - ./config.py:/app/config.py
-    #     - ./schemas:/app/schemas
-    #   env_file: .env
-    #   depends_on:
-    #     db: 
-    #       condition: service_healthy
+    bot:
+      build:
+        context: .
+        dockerfile: ./bot/bot.Dockerfile
+      restart: always
+      networks:
+        - app-network
+      volumes:
+        - ./bot:/app
+        - ./db:/app/db
+        - ./config.py:/app/config.py
+        - ./schemas:/app/schemas
+      env_file: .env
+      depends_on:
+        db: 
+          condition: service_healthy
 
     db:
       image: postgres:15
