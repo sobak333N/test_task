@@ -1,4 +1,5 @@
 from fastapi import APIRouter, status, Depends
+from fastapi.responses import JSONResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from aiohttp import ClientSession
 
@@ -30,3 +31,7 @@ async def get_subscribe(
     artikul: int,
 ):
     await product_service.subscribe(artikul, scheduler)
+    return JSONResponse(
+        status_code=200,
+        content={"message": f"Подписка на товар артикула {artikul} успешно оформлена"},
+    )

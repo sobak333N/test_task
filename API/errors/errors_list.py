@@ -20,5 +20,5 @@ class ServerErrorExc(Exception):
 
 
 class AlreadySubscribedExc(Exception):
-    def __init__(self, detail: str = "Подписка на данны товар уже оформлена"):
+    def __init__(self, detail: str = "Подписка на данный товар уже оформлена"):
         self.detail = detail

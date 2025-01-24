@@ -11,7 +11,7 @@ CREATE INDEX idx_products_artikul ON products (artikul);
 
 CREATE TABLE apscheduler_jobs (
     id VARCHAR(191) NOT NULL PRIMARY KEY,
-    next_run_time TIMESTAMP WITH TIME ZONE NULL,
+    next_run_time NUMERIC NULL,
     job_state BYTEA NOT NULL
 );
 
