@@ -12,9 +12,15 @@ from keyboards import get_data_kb
 async def product_menu(msg: Message | CallbackQuery, state: FSMContext):
     await state.clear()
     text_ = '<b>Главное меню </b>\nНажмите на кнопку'
-
+    if isinstance(msg, Message):
+        await msg.delete()
     if isinstance(msg, CallbackQuery):
-        await msg.message.delete()
+        await msg.message.edit_text(
+            text=text_,
+            reply_markup=get_data_kb
+        )
+        return
+
     await msg.answer(
         text=text_,
         reply_markup=get_data_kb

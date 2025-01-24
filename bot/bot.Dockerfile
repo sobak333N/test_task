@@ -14,4 +14,7 @@ COPY ./db ./db
 
 COPY ./config.py .
 
-CMD ["sh", "-c", "python3 main.py"]
+RUN apt-get update && apt-get install -y procps && rm -rf /var/lib/apt/lists/*
+
+# Запуск Python в неблокирующем режиме
+CMD ["sh", "-c", "python3 -u main.py"]

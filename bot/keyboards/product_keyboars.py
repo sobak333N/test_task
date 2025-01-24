@@ -1,14 +1,12 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 
-main_menu_btn = [
-    InlineKeyboardButton(
-        text="В меню", callback_data="menu"
-    )
-],
+main_menu_btn = InlineKeyboardButton(
+    text="В меню", callback_data="menu"
+)
 
 main_menu_kb = InlineKeyboardMarkup(
-    inline_keyboard=[main_menu_btn]
+    inline_keyboard=[[main_menu_btn]]
 )
 
 get_data_kb = [

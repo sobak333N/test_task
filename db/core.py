@@ -14,7 +14,6 @@ class Base(DeclarativeBase):
     pass
 
 
-print(Config.DATABASE_URL)
 engine: AsyncEngine = create_async_engine(
     Config.DATABASE_URL,
     echo=True,

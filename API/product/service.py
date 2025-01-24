@@ -45,6 +45,7 @@ class ProductService(AbsService):
             self.regular_task,
             trigger='interval',
             minutes=30,
+            # seconds=5,
             args=[artikul],
             id=job_id,
             replace_existing=False,
