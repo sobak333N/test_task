@@ -1,13 +1,13 @@
 from pydantic import BaseModel, Field, ConfigDict
 
 
-class ProductPostRequestSchema(BaseModel):
+class ArtikulSchema(BaseModel):
     artikul: int = Field(
         ..., description="Артикул товара на wildberries", examples=[211695539]
     )
 
 
-class ProductExternalSchena(ProductPostRequestSchema):
+class ProductExternalSchena(ArtikulSchema):
     name: str = Field(
         ..., description="Название продукта", 
         examples=["Гель для бровей версия 2.0 супер сильная фиксация"]

@@ -3,7 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from aiohttp import ClientSession
 
 from db.core import get_session
-from schemas import ProductPostRequestSchema, ProductSchema
+from schemas import ArtikulSchema, ProductSchema
 from depends import get_http_session
 from .service import ProductService
 from scheduler import scheduler
@@ -15,7 +15,7 @@ product_service = ProductService()
 
 @product_router.post("/product", status_code=status.HTTP_201_CREATED, response_model=ProductSchema)
 async def post_products(
-    product_data: ProductPostRequestSchema,
+    product_data: ArtikulSchema,
     session: AsyncSession = Depends(get_session),
     http_session: ClientSession = Depends(get_http_session)
 ):
