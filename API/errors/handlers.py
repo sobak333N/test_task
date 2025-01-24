@@ -3,7 +3,8 @@ from fastapi.responses import JSONResponse
 
 from .errors_list import (
     NotUniqueArtikulExc,  NotValidExternalDataExc,
-    ProductDoesntExitstsExc, ServerErrorExc, AlreadySubscribedExc
+    ProductDoesntExitstsExc, ServerErrorExc, AlreadySubscribedExc,
+    TokenRequiredExc,
 )
 
 
@@ -52,6 +53,15 @@ async def already_subscribed_error_handler(
     )
 
 
+async def token_required_error_handler(
+    request: Request, exc: AlreadySubscribedExc
+):
+    return JSONResponse(
+        status_code=401,
+        content={"message": exc.detail},
+    )
+
+
 def register_all_errors(fastapi: FastAPI):
     fastapi.add_exception_handler(
         NotUniqueArtikulExc, not_unique_artikul_handler
@@ -66,4 +76,6 @@ def register_all_errors(fastapi: FastAPI):
     fastapi.add_exception_handler(
         AlreadySubscribedExc, already_subscribed_error_handler
     )
-
+    fastapi.add_exception_handler(
+        TokenRequiredExc, token_required_error_handler
+    )

@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     POSTGRES_INNER_PORT: int
     FETCH_URL: str
     API_KEY: str
+    BEARER_TOKEN: str
 
     @property
     def DATABASE_URL(self) -> str:

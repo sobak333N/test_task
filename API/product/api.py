@@ -8,7 +8,7 @@ from schemas import ArtikulSchema, ProductSchema
 from depends import get_http_session
 from .service import ProductService
 from scheduler import scheduler
-
+from auth import TokenDepends
 
 product_router = APIRouter()
 product_service = ProductService()
@@ -18,7 +18,8 @@ product_service = ProductService()
 async def post_products(
     product_data: ArtikulSchema,
     session: AsyncSession = Depends(get_session),
-    http_session: ClientSession = Depends(get_http_session)
+    http_session: ClientSession = Depends(get_http_session),
+    token: str = Depends(TokenDepends()),
 ):
     external_product_model = await product_service.fetch_data(
         product_data.artikul, http_session
@@ -29,6 +30,7 @@ async def post_products(
 @product_router.get("/subscribe/{artikul}", status_code=status.HTTP_200_OK)
 async def get_subscribe(
     artikul: int,
+    token: str = Depends(TokenDepends()),
 ):
     await product_service.subscribe(artikul, scheduler)
     return JSONResponse(

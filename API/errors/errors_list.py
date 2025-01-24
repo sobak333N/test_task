@@ -22,3 +22,8 @@ class ServerErrorExc(Exception):
 class AlreadySubscribedExc(Exception):
     def __init__(self, detail: str = "Подписка на данный товар уже оформлена"):
         self.detail = detail
+
+
+class TokenRequiredExc(Exception):
+    def __init__(self, detail: str = "Необходим валидный Bearer token"):
+        self.detail = detail
